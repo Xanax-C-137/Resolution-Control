@@ -41,8 +41,8 @@ public abstract class WindowMixin {
 	@Inject(at = @At("RETURN"), method = "getScaleFactor", cancellable = true)
 	private void getScaleFactor(CallbackInfoReturnable<Double> ci) {
 		//System.out.println("ci.getReturnValueD() "+ci.getReturnValueD());
-		//ci.setReturnValue(ci.getReturnValueD());
-		ci.setReturnValue(ci.getReturnValueD() * ResolutionControlMod.getInstance().getCurrentScaleFactor());
+		ci.setReturnValue(ci.getReturnValueD());
+		//ci.setReturnValue(ci.getReturnValueD() * ResolutionControlMod.getInstance().getCurrentScaleFactor());
 	}
 	
 	@Inject(at = @At("RETURN"), method = "onFramebufferSizeChanged")

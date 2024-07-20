@@ -33,7 +33,7 @@ public class ResolutionControlMod implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
 	public static Identifier identifier(String path) {
-		return new Identifier(MOD_ID, path);
+		return Identifier.of(MOD_ID, path);
 	}
 
 	private static final MinecraftClient client = MinecraftClient.getInstance();
@@ -211,7 +211,7 @@ public class ResolutionControlMod implements ModInitializer {
 			minecraftFramebuffers = new HashSet<>();
 		}
 
-		minecraftFramebuffers.add(client.worldRenderer.getEntityOutlinesFramebuffer());
+		//minecraftFramebuffers.add(client.worldRenderer.getEntityOutlinesFramebuffer());
 		minecraftFramebuffers.add(client.worldRenderer.getTranslucentFramebuffer());
 		minecraftFramebuffers.add(client.worldRenderer.getEntityFramebuffer());
 		minecraftFramebuffers.add(client.worldRenderer.getParticlesFramebuffer());
@@ -357,23 +357,19 @@ public class ResolutionControlMod implements ModInitializer {
 				getWindow().getWidth(), getWindow().getHeight(),
 				getWindow().getScaledWidth(), getWindow().getScaledHeight());
 
-		if (getWindow().getScaledHeight() == lastWidth
-				|| getWindow().getScaledHeight() == lastHeight)
-		{
-			updateFramebufferSize();
+		updateFramebufferSize();
 
-			lastWidth = getWindow().getScaledHeight();
-			lastHeight = getWindow().getScaledHeight();
-		}
-
-
+		lastWidth = getWindow().getScaledHeight();
+		lastHeight = getWindow().getScaledHeight();
 	}
 
 	public void updateFramebufferSize() {
 		if (rcFramebuffer == null)
 			return;
 
-		resizeMinecraftFramebuffers();
+		resize(rcFramebuffer);
+		resize(client.worldRenderer.getEntityOutlinesFramebuffer(), getScaleFactor());
+		client.worldRenderer.drawEntityOutlinesFramebuffer();
 
 		calculateSize();
 	}
@@ -394,13 +390,13 @@ public class ResolutionControlMod implements ModInitializer {
 		estimatedMemory = (long) currentWidth * currentHeight * 8;
 	}
 
-	public void resize(@Nullable Framebuffer framebuffer) {
+	/*public void resize(@Nullable Framebuffer framebuffer) {
 		if (framebuffer == null) return;
 
 		boolean prevScaling = rcShouldScale;
 		rcShouldScale = true;  // Assume we need to scale during this operation
 
-		double scaleFactor = getCurrentScaleFactor();  // Retrieve dynamic scale factor
+		double scaleFactor = getCurrentScaleFactor();
 		int originalWidth = getWindow().getFramebufferWidth();
 		int originalHeight = getWindow().getFramebufferHeight();
 		double aspectRatio = (double) originalWidth / originalHeight;
@@ -426,9 +422,32 @@ public class ResolutionControlMod implements ModInitializer {
 
 		// Restore previous scaling state
 		rcShouldScale = prevScaling;
+	}*/
+
+	public void resize(@Nullable Framebuffer framebuffer) {
+		resize(framebuffer, 1);
 	}
 
+	public void resize(@Nullable Framebuffer framebuffer, float multiplier) {
+		if (framebuffer == null) return;
 
+		boolean prev = rcShouldScale;
+		rcShouldScale = true;
+		if (screenshot) {
+			framebuffer.resize(
+					getScreenshotWidth(),
+					getScreenshotHeight(),
+					MinecraftClient.IS_SYSTEM_MAC
+			);
+		} else {
+			framebuffer.resize(
+					getWindow().getFramebufferWidth(),
+					getWindow().getFramebufferHeight(),
+					MinecraftClient.IS_SYSTEM_MAC
+			);
+		}
+		rcShouldScale = prev;
+	}
 
 	private Window getWindow() {
 		return client.getWindow();

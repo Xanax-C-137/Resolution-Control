@@ -16,12 +16,12 @@ public class WorldRendererMixin {
 
     @Inject(at = @At("RETURN"), method = "loadEntityOutlinePostProcessor")
     private void onLoadEntityOutlineShader(CallbackInfo ci) {
-        ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
+        //ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
     }
 
     @Inject(at = @At("RETURN"), method = "onResized")
     private void onOnResized(CallbackInfo ci) {
         if (entityOutlinesFramebuffer == null) return;
-        ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
+        //ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
     }
 }

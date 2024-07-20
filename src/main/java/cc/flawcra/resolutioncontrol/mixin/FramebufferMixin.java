@@ -8,14 +8,14 @@ import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL45;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.nio.IntBuffer;
 
@@ -33,21 +33,24 @@ public abstract class FramebufferMixin {
     }
 
 
-    @Redirect(method = "*", at = @At(value = "INVOKE",
+    @ModifyArgs(method = "*", at = @At(value = "INVOKE",
             target = "Lcom/mojang/blaze3d/platform/GlStateManager;_texParameter(III)V"))
-    private void onSetTexFilter(int target, int pname, int param) {
+    private void modifyTexParameterArgs(Args args) {
+
+        int target = args.get(0);
+        int pname = args.get(1);
+        int param = args.get(2);
+
         if (pname == GL11.GL_TEXTURE_MIN_FILTER) {
-            GlStateManager._texParameter(target, pname,
-                    ResolutionControlMod.getInstance().getUpscaleAlgorithm().getId(isMipmapped));
+            param = ResolutionControlMod.getInstance().getUpscaleAlgorithm().getId(isMipmapped);
         } else if (pname == GL11.GL_TEXTURE_MAG_FILTER) {
-            GlStateManager._texParameter(target, pname,
-                    ResolutionControlMod.getInstance().getDownscaleAlgorithm().getId(false));
+            param = ResolutionControlMod.getInstance().getDownscaleAlgorithm().getId(false);
         } else if (pname == GL11.GL_TEXTURE_WRAP_S || pname == GL11.GL_TEXTURE_WRAP_T) {
             // Fix linear scaling creating black borders
-            GlStateManager._texParameter(target, pname, GL12.GL_CLAMP_TO_EDGE);
-        } else {
-            GlStateManager._texParameter(target, pname, param);
+            param = GL12.GL_CLAMP_TO_EDGE;
         }
+
+        args.setAll(target, pname, param);
     }
 
     @Redirect(method = "initFbo", at = @At(value = "INVOKE",
@@ -71,7 +74,7 @@ public abstract class FramebufferMixin {
     private void onDraw(int width, int height, boolean bl, CallbackInfo ci) {
         if (isMipmapped) {
             GlStateManager._bindTexture(this.getColorAttachment());
-            GL45.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+            GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
         }
     }
 }
