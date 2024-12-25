@@ -1,6 +1,6 @@
-package cc.flawcra.resolutioncontrol.util;
+package cc.modlabs.resolutioncontrol.util;
 
-import cc.flawcra.resolutioncontrol.ResolutionControlMod;
+import cc.modlabs.resolutioncontrol.ResolutionControlMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.client.MinecraftClient;

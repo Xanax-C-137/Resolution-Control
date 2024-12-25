@@ -1,13 +1,12 @@
-package cc.flawcra.resolutioncontrol.client.gui.screen;
+package cc.modlabs.resolutioncontrol.client.gui.screen;
 
-import cc.flawcra.resolutioncontrol.ResolutionControlMod;
-import cc.flawcra.resolutioncontrol.util.RCUtil;
+import cc.modlabs.resolutioncontrol.ResolutionControlMod;
+import cc.modlabs.resolutioncontrol.util.RCUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.Nullable;

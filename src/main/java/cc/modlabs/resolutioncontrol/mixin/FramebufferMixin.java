@@ -1,7 +1,7 @@
-package cc.flawcra.resolutioncontrol.mixin;
+package cc.modlabs.resolutioncontrol.mixin;
 
-import cc.flawcra.resolutioncontrol.ResolutionControlMod;
-import cc.flawcra.resolutioncontrol.util.Config;
+import cc.modlabs.resolutioncontrol.ResolutionControlMod;
+import cc.modlabs.resolutioncontrol.util.Config;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;

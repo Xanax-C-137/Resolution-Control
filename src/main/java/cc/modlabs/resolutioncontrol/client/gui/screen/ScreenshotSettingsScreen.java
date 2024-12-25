@@ -1,6 +1,6 @@
-package cc.flawcra.resolutioncontrol.client.gui.screen;
+package cc.modlabs.resolutioncontrol.client.gui.screen;
 
-import cc.flawcra.resolutioncontrol.util.RCUtil;
+import cc.modlabs.resolutioncontrol.util.RCUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -98,8 +98,7 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
                 0x000000);
 
         drawLeftAlignedString(context,
-                "\u00a78" + text("settings.main.estimate").getString()
-                        + " " + RCUtil.formatMetric(estimatedSize) + "B",
+                "\u00a78" + text("settings.main.estimate", RCUtil.formatMetric(estimatedSize) + "B").getString(),
                 centerX + 25, centerY + 12,
                 0x000000);
     }

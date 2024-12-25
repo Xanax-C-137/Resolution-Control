@@ -6,12 +6,12 @@
 	"name": "ResolutionControl++",
 	"description": "Gives you more control over minecraft's render resolution.",
 	"authors": [
-		"juliand665", "UltimateBoomer", "fantahund", "FlawCra"
+		"juliand665", "UltimateBoomer", "fantahund", "ModLabs"
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/project/resolution-control-plus-plus",
-		"sources": "https://github.com/FlawCra/Resolution-Control",
-		"issues": "https://github.com/FlawCra/Resolution-Control/issues"
+		"sources": "https://github.com/ModLabsCC/Resolution-Control",
+		"issues": "https://github.com/ModLabsCC/Resolution-Control/issues"
 	},
 
 	"license": "MIT",
@@ -20,10 +20,10 @@
 	"environment": "client",
 	"entrypoints": {
 		"main": [
-			"cc.flawcra.resolutioncontrol.ResolutionControlMod"
+			"cc.modlabs.resolutioncontrol.ResolutionControlMod"
 		],
 		"modmenu": [
-			"cc.flawcra.resolutioncontrol.compat.modmenu.ModMenuInfo"
+			"cc.modlabs.resolutioncontrol.compat.modmenu.ModMenuInfo"
 		]
 	},
 	"mixins": [
@@ -33,7 +33,7 @@
 	"depends": {
 		"fabricloader": ">=0.15.11",
 		"fabric": "*",
-		"minecraft": ["1.20.6"],
+		"minecraft": ["${minecraft_version}"],
 		"java": ">=17"
 	},
 	"suggests": {

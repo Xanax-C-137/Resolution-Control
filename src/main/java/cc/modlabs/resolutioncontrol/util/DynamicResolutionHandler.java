@@ -1,6 +1,6 @@
-package cc.flawcra.resolutioncontrol.util;
+package cc.modlabs.resolutioncontrol.util;
 
-import cc.flawcra.resolutioncontrol.ResolutionControlMod;
+import cc.modlabs.resolutioncontrol.ResolutionControlMod;
 import it.unimi.dsi.fastutil.floats.FloatArrayList;
 import it.unimi.dsi.fastutil.floats.FloatList;
 

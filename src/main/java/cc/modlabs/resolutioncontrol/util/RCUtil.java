@@ -1,4 +1,4 @@
-package cc.flawcra.resolutioncontrol.util;
+package cc.modlabs.resolutioncontrol.util;
 
 import java.io.File;
 import java.io.IOException;

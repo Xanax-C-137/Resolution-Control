@@ -1,6 +1,6 @@
-package cc.flawcra.resolutioncontrol.client.gui.screen;
+package cc.modlabs.resolutioncontrol.client.gui.screen;
 
-import cc.flawcra.resolutioncontrol.ResolutionControlMod;
+import cc.modlabs.resolutioncontrol.ResolutionControlMod;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;

@@ -1,6 +1,6 @@
-package cc.flawcra.resolutioncontrol.mixin;
+package cc.modlabs.resolutioncontrol.mixin;
 
-import cc.flawcra.resolutioncontrol.ResolutionControlMod;
+import cc.modlabs.resolutioncontrol.ResolutionControlMod;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.render.WorldRenderer;
 import org.spongepowered.asm.mixin.Mixin;
