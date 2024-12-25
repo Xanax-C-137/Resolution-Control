@@ -46,8 +46,6 @@ public class ResolutionControlMod implements ModInitializer {
 	}
 
 	private static final String SCREENSHOT_PREFIX = "fb";
-
-	private boolean optifineInstalled;
 	
 	private KeyBinding settingsKey;
 	private KeyBinding screenshotKey;
@@ -139,7 +137,9 @@ public class ResolutionControlMod implements ModInitializer {
 			}
 		});
 
-		optifineInstalled = FabricLoader.getInstance().isModLoaded("optifabric");
+		if(FabricLoader.getInstance().isModLoaded("optifabric")) {
+			LOGGER.warn("Optifine was detected. If Minecraft crashes with "+MOD_NAME+" and Optifine installed, there will be no support for you.");
+		}
 	}
 
 	private void saveScreenshot(Framebuffer fb) {
@@ -392,7 +392,7 @@ public class ResolutionControlMod implements ModInitializer {
 
 		resize(framebuffer);
 		resize(client.worldRenderer.getEntityOutlinesFramebuffer());
-		//resizeMinecraftFramebuffers();
+		resizeMinecraftFramebuffers();
 
 		calculateSize();
 	}
@@ -414,6 +414,7 @@ public class ResolutionControlMod implements ModInitializer {
 		if (framebuffer == null) return;
 
 		boolean prev = shouldScale;
+		shouldScale = true;
 
 		if (screenshot) {
 			framebuffer.resize(
@@ -457,10 +458,6 @@ public class ResolutionControlMod implements ModInitializer {
 
 	public boolean isScreenshotting() {
 		return screenshot;
-	}
-
-	public boolean isOptifineInstalled() {
-		return optifineInstalled;
 	}
 
 	public void saveSettings() {
