@@ -7,11 +7,11 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_21
 targetCompatibility = JavaVersion.VERSION_21
 
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
-
 def mcVersion = project.property("minecraft_version")
+
+archivesBaseName = project.archives_base_name
+version = mcVersion + "-" + project.mod_version
+group = project.maven_group
 
 loom {
 	accessWidenerPath = file("src/main/resources/${project.mod_name}.accesswidener")
