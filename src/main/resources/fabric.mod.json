@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "resolutioncontrol",
+	"id": "resolutioncontrol-plus-plus",
 	"version": "${version}",
 
 	"name": "ResolutionControl++",
@@ -35,6 +35,9 @@
 		"fabric": "*",
 		"minecraft": ["${minecraft_version}"],
 		"java": ">=17"
+	},
+	"conflicts": {
+		"resolutioncontrol": "*"
 	},
 	"suggests": {
 		"flamingo": "*"

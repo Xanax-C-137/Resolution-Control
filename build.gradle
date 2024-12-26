@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'fabric-loom' version '1.8-SNAPSHOT'
 	id 'maven-publish'
 	id "com.modrinth.minotaur" version "2.8.7"
 }
@@ -92,10 +92,10 @@ publishing {
 modrinth {
 	token = System.getenv("MODRINTH_TOKEN")
 	projectId = project.modrinth_id
-	versionNumber = project.mod_version
+	versionNumber = project.version
 	versionName = "${project.getName()} ${project.mod_version}"
 	versionType = isMCVersionNonRelease() ? "beta" : "release"
-	changelog = file("changelog.md").text
+	changelog = "- Update to ${mcVersion}"
 	uploadFile = remapJar
 	gameVersions = [ project.minecraft_version ]
 	loaders = [ "fabric" ]

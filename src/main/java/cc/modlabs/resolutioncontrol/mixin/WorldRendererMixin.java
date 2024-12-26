@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
     @Shadow
-    public Framebuffer entityOutlinesFramebuffer;
+    private Framebuffer entityOutlineFramebuffer;
 
     @Inject(at = @At("RETURN"), method = "loadEntityOutlinePostProcessor")
     private void onLoadEntityOutlineShader(CallbackInfo ci) {
@@ -21,7 +21,7 @@ public class WorldRendererMixin {
 
     @Inject(at = @At("RETURN"), method = "onResized")
     private void onOnResized(CallbackInfo ci) {
-        if (entityOutlinesFramebuffer == null) return;
+        if (entityOutlineFramebuffer == null) return;
         ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
     }
 }

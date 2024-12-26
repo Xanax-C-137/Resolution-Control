@@ -166,8 +166,6 @@ public class ResolutionControlMod implements ModInitializer {
 
 		this.shouldScale = shouldScale;
 
-		client.getProfiler().swap(shouldScale ? "startScaling" : "finishScaling");
-
 		// swap out framebuffers as needed
 		if (shouldScale) {
 			clientFramebuffer = client.getFramebuffer();
@@ -214,8 +212,6 @@ public class ResolutionControlMod implements ModInitializer {
 				);
 			}
 		}
-
-		client.getProfiler().swap("level");
 	}
 
 	public void initMinecraftFramebuffers() {
@@ -419,14 +415,12 @@ public class ResolutionControlMod implements ModInitializer {
 		if (screenshot) {
 			framebuffer.resize(
 					getScreenshotWidth(),
-					getScreenshotHeight(),
-					MinecraftClient.IS_SYSTEM_MAC
+					getScreenshotHeight()
 			);
 		} else {
 			framebuffer.resize(
 					getWindow().getFramebufferWidth(),
-					getWindow().getFramebufferHeight(),
-					MinecraftClient.IS_SYSTEM_MAC
+					getWindow().getFramebufferHeight()
 			);
 		}
 		shouldScale = prev;

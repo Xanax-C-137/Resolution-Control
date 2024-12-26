@@ -8,6 +8,7 @@ import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL45;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,7 +28,7 @@ public abstract class FramebufferMixin {
     @Shadow public abstract int getColorAttachment();
 
     @Inject(method = "initFbo", at = @At("HEAD"))
-    private void onInitFbo(int width, int height, boolean getError, CallbackInfo ci) {
+    private void onInitFbo(int width, int height, CallbackInfo ci) {
         scaleMultiplier = (float) width / MinecraftClient.getInstance().getWindow().getWidth();
         isMipmapped = Config.getInstance().mipmapHighRes && scaleMultiplier > 2.0f;
     }
@@ -68,10 +69,10 @@ public abstract class FramebufferMixin {
     }
 
     @Inject(method = "drawInternal", at = @At("HEAD"))
-    private void onDraw(int width, int height, boolean bl, CallbackInfo ci) {
+    private void onDraw(int width, int height, CallbackInfo ci) {
         if (isMipmapped) {
             GlStateManager._bindTexture(this.getColorAttachment());
-            GL45.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+            GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
         }
     }
 }

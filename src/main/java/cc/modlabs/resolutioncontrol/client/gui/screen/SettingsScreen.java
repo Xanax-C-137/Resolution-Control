@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -100,13 +101,19 @@ public class SettingsScreen extends Screen {
         RenderSystem.setShaderTexture(0, WINDOW_TEXTURE);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-        int textureWidth = 256;
-        int textureHeight = 192;
+        int textureWidth = 192;
+        int textureHeight = 128;
         context.drawTexture(
+                RenderLayer::getGuiTextured,
                 WINDOW_TEXTURE,
-                centerX - textureWidth / 2, centerY - textureHeight / 2,
-                0, 0,
-                textureWidth, textureHeight
+                centerX - containerWidth / 2,
+                centerY - containerHeight / 2,
+                0,
+                0,
+                containerWidth,
+                containerHeight,
+                textureWidth,
+                textureHeight
         );
 
         super.render(context, mouseX, mouseY, delta);
